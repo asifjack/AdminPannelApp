@@ -1,4 +1,6 @@
 ﻿using AdminPannelApp.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace AdminPannelApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -33,5 +36,6 @@ namespace AdminPannelApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+       
     }
 }

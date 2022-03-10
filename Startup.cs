@@ -1,6 +1,7 @@
 using AdminPannelApp.Models;
 using AdminPannelApp.Repository.Interface;
 using AdminPannelApp.Repository.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,8 @@ namespace AdminPannelApp
             services.AddControllersWithViews();
             DbConnection.ConnectionStr = Configuration.GetConnectionString("Conn");
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
             //Inject Services
             services.AddTransient<IUsers, AccountService>();
         } 
@@ -50,7 +53,7 @@ namespace AdminPannelApp
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

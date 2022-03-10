@@ -43,9 +43,36 @@ namespace AdminPannelApp.Repository.Services
             }
         }
 
-        public SignUpEnum SignUp(SignInModel model)
+        public SignUpEnum SignUp(SignUpModel model)
         {
-            throw new NotImplementedException();
+            if (dBContex.Users.Any(e => e.Email == model.Email))
+            {
+                return SignUpEnum.EmailExist;
+            }
+            else 
+            {
+                var user = new Users()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Password = model.ConfirmPassword,
+                    Gender = model.Gender
+                };
+                dBContex.Users.Add(user);
+                dBContex.SaveChanges();
+                return SignUpEnum.Success;
+
+            }
+           
+
+        }
+        private void SendEmailAuthentication()
+        { 
+        }
+        private string GenerateOtp(string to , string username, string otp)
+        {
+            return "Otp";
         }
     }
 }
