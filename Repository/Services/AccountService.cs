@@ -5,6 +5,7 @@ using AdminPannelApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace AdminPannelApp.Repository.Services
@@ -60,19 +61,67 @@ namespace AdminPannelApp.Repository.Services
                     Gender = model.Gender
                 };
                 dBContex.Users.Add(user);
+                string Otp = GenerateOTP();
+                SendMail(model.Email, Otp);
+                var VAccount = new VerifyAccount()
+                {
+                    Otp = Otp,
+                    UserId = model.Email,
+                    SendTime = DateTime.Now
+                };
+                dBContex.VerifyAccounts.Add(VAccount); 
                 dBContex.SaveChanges();
                 return SignUpEnum.Success;
-
             }
-           
+            return SignUpEnum.Failure;
 
         }
-        private void SendEmailAuthentication()
-        { 
-        }
-        private string GenerateOtp(string to , string username, string otp)
+        private void SendMail(string to, string Otp)
         {
-            return "Otp";
+            MailMessage mail = new MailMessage();
+            mail.To.Add(to);
+            mail.From = new MailAddress("mdasifwr@gmail.com");
+            mail.Subject = "Verify Your Account";
+            string Body = $"Your OTP is <b> {Otp}</b>  <br/>thanks for choosing us.";
+            mail.Body = Body;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new System.Net.NetworkCredential("mdasifwr@gmail.com", "MAWR##09090"); // Enter seders User name and password  
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
         }
+        private string GenerateOTP()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var list = Enumerable.Repeat(0, 8).Select(x => chars[random.Next(chars.Length)]);
+            var r = string.Join("", list);
+            return r;
+        }
+
+        public bool VerifyAccount(string Otp)
+        {
+            if (dBContex.VerifyAccounts.Any(e => e.Otp == Otp))
+            {
+                var Acc = dBContex.VerifyAccounts.SingleOrDefault(e => e.Otp == Otp);
+                var User = dBContex.Users.SingleOrDefault(e => e.Email == Acc.UserId);
+                User.IsVerified = true;
+                User.IsActive = true;
+
+                dBContex.VerifyAccounts.Remove(Acc);
+                dBContex.Users.Update(User);
+                dBContex.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }
+// https://g.co/allowaccess

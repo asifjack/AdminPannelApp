@@ -15,10 +15,16 @@ UpdatedOn datetime)
 drop table Users 
 
 select * from Users
-Create Table VerifyAccount (Id int primary key identity,
-Otp varchar(10),
-UserId int foreign key references Users(id),
-SendTime datetime
-)
+--Create Table VerifyAccount (Id int primary key identity,
+--Otp varchar(10),
+--UserId int foreign key references Users(id),
+--SendTime datetime
+--)
 
 Select * from VerifyAccount;
+
+Create Table VerifyAccounts (Id int primary key identity,
+Otp varchar(101),
+UserId varchar(100),
+SendTime datetime
+)

@@ -10,6 +10,7 @@ namespace AdminPannelApp.Repository.Interface
     public interface IUsers
     {
         SignInEnum SignIn(SignInModel model);
-        SignUpEnum SignUp(SignInModel model);
+        SignUpEnum SignUp(SignUpModel model);
+        bool VerifyAccount(string otp);
     }
 }

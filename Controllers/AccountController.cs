@@ -75,7 +75,48 @@ namespace AdminPannelApp.Controllers
         [HttpPost]
         public IActionResult Register(SignUpModel model)
         {
-            var result = UserService.SignUp(model);
+            if (ModelState.IsValid)
+            {
+                var result = UserService.SignUp(model);
+                if (result == SignUpEnum.Success)
+                {
+                    return RedirectToAction("VerifyAccount");
+
+                }
+                else if (result == SignUpEnum.EmailExist)
+                {
+                    ModelState.AddModelError(string.Empty, "This Email already exist ,Please try another");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty,"Something Went wrong !..");
+                }
+            }
+           // var result = UserService.SignUp(model);
+            return View();
+        }
+        public IActionResult VerifyAccount()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult VerifyAccount(string otp)
+        {
+            if (otp != null)
+            {
+                if (UserService.VerifyAccount(otp))
+                {
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Please Enter Correct Otp");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty,"Please Enter Otp");
+            }
             return View();
         }
 
