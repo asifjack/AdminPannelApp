@@ -119,7 +119,32 @@ namespace AdminPannelApp.Controllers
             }
             return View();
         }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgotPassModel model)
+        {
+            var res=UserService.ForgotPassword(model);
+            if (res == ForgotPassEnum.Success)
+            {
+                return RedirectToAction("EnterOtpForm");
+
+            }
+
+            return View();
+        }
+        public IActionResult EnterOtpForm()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EnterOtpForm(ForgotPassOtpModel otp)
+        {
+            return View();
+        }
     }
 }
 

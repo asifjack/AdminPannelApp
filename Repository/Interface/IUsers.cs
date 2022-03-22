@@ -11,6 +11,7 @@ namespace AdminPannelApp.Repository.Interface
     {
         SignInEnum SignIn(SignInModel model);
         SignUpEnum SignUp(SignUpModel model);
+        ForgotPassEnum ForgotPassword(ForgotPassModel model);
         bool VerifyAccount(string otp);
     }
 }

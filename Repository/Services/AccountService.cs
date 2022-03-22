@@ -122,6 +122,28 @@ namespace AdminPannelApp.Repository.Services
             }
         }
 
+        public ForgotPassEnum ForgotPassword(ForgotPassModel model)
+        {
+            if (dBContex.Users.Any(e => e.Email == model.Email))
+            {
+                string Otp = GenerateOTP();
+                SendMail(model.Email, Otp);
+                var VAccount = new VerifyAccount()
+                {
+                    Otp = Otp,
+                    UserId = model.Email,
+                    SendTime = DateTime.Now
+                };
+                dBContex.VerifyAccounts.Add(VAccount);
+                return ForgotPassEnum.Success;
+            }
+            else
+            {
+                return ForgotPassEnum.Failure;
+            }
+            
+        }
+
     }
 }
 // https://g.co/allowaccess
