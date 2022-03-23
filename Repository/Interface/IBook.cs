@@ -8,7 +8,6 @@ namespace AdminPannelApp.Repository.Interface
     public interface IBook
     {
     }
-
     public interface GenericInterface<T>
     {
         List<T> GetData();

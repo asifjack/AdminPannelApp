@@ -35,7 +35,7 @@ namespace AdminPannelApp.Repository.Services
 
                          }).ToList();
 
-            return null;
+            return books;
         }
     }
 }

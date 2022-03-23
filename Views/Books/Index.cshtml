@@ -1,8 +1,46 @@
-﻿
+﻿@{
+
+ }
+<div class="content-wrapper">
+    <div class="container">
+        <table class=" table table-bordered" id="tbl_data">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Published_On</th>
+                    <th>AuthorName</th>
+                    <th>AuthorEmail</th>
+                    <th>AuthorMobile</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+        </table>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
-        $.get('@Url.Action("GetBook", "Books")', function (response) {
-            console.log(response);
+        $.get('@Url.Action("GetBooks", "Books")', function (response) {
+            console.log(response)
+            $("#tbl_data").DataTable({
+
+                data: response,
+                columns: [
+                    { data: "id" },
+                    { data: "title" },
+                    { data: "price" },
+                    { data: "quantity" },
+                    { data: "published_On" },
+                    { data: "authorName" },
+                    { data: "authorEMail" },
+                    { data: "authorMobile" }
+
+                ]
+                })
         })
           })
 </script>

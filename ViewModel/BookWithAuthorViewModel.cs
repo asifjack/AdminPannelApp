@@ -15,10 +15,5 @@ namespace AdminPannelApp.ViewModel
         public string AuthorName { get; set; }
         public string AuthorMobile { get; set; }
         public string AuthorEMail { get; set; }
-
-
-
-
-
     }
 }

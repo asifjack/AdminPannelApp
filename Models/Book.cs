@@ -12,8 +12,6 @@ namespace AdminPannelApp.Models
         public Decimal Price { get; set; }
         public int Quantity { get; set; }
         public string Published_On { get; set; }
-
         public int Author_Id { get; set;}
-
     }
 }

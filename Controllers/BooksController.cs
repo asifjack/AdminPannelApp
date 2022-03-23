@@ -19,7 +19,7 @@ namespace AdminPannelApp.Controllers
         {
             return View();
         }
-        public JsonResult GetBook()
+        public JsonResult GetBooks()
         {
             var books = BookServices.GetData();
             return Json(books);
