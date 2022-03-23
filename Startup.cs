@@ -1,6 +1,7 @@
 using AdminPannelApp.Models;
 using AdminPannelApp.Repository.Interface;
 using AdminPannelApp.Repository.Services;
+using AdminPannelApp.ViewModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,7 @@ namespace AdminPannelApp
 
             //Inject Services
             services.AddTransient<IUsers, AccountService>();
+            services.AddTransient<GenericInterface<BookWithAuthorViewModel>,BookService>();
         } 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

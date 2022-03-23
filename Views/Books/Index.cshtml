@@ -1,0 +1,8 @@
+﻿
+<script>
+    $(document).ready(function () {
+        $.get('@Url.Action("GetBook", "Books")', function (response) {
+            console.log(response);
+        })
+          })
+</script>

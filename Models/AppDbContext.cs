@@ -11,6 +11,8 @@ namespace AdminPannelApp.Models
         //public AppDbContext() : base() { }
         public DbSet<Users> Users { get; set; }
         public DbSet<VerifyAccount> VerifyAccounts { get; set; }
+        public DbSet<Book> Books { get; set;}
+        public DbSet<Author> Authors { get; set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(DbConnection.ConnectionStr);
