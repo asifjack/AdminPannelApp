@@ -36,6 +36,7 @@ namespace AdminPannelApp
             //Inject Services
             services.AddTransient<IUsers, AccountService>();
             services.AddTransient<GenericInterface<BookWithAuthorViewModel>,BookService>();
+            services.AddTransient<IBook,BookService>();
         } 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

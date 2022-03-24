@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AdminPannelApp.Repository.Services
 {
     
-    public class BookService: GenericInterface<BookWithAuthorViewModel>
+    public class BookService: GenericInterface<BookWithAuthorViewModel>,IBook
     {
         private AppDbContext dbContext;
         public BookService()
@@ -37,5 +37,24 @@ namespace AdminPannelApp.Repository.Services
 
             return books;
         }
+
+        public bool DeleteBook(int id)
+        {
+            var book = dbContext.Books.SingleOrDefault(e => e.Id == id);
+            if (book != null)
+            {
+                dbContext.Books.Remove(book);
+                dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+
     }
 }
